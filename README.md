@@ -48,7 +48,8 @@ UN  172.18.0.3  88.88 KiB  256          100.0%            efea05ac-f8e6-4909-9ef
 ```
 or
 ```
-docker exec -it cassandra0 nodetool status
+docker exec -it cassandra0 bash
+root@d2314cac05e9:/# nodetool status
 Datacenter: datacenter1
 =======================
 Status=Up/Down

@@ -62,4 +62,53 @@ See Postman collection for Example 2. This connects to httpbin and returns a sim
  
 5.	Login into the Cassandra cluster again, and list the plugin configuration from the C* table.
 
+```
+docker exec -it cassandra0 bash
+```
 
+```
+/# cqlsh
+Connected to Test Cluster at 127.0.0.1:9042.
+[cqlsh 5.0.1 | Cassandra 3.11.3 | CQL spec 3.4.4 | Native protocol v4]
+Use HELP for help.
+cqlsh> describe keyspaces
+
+system_schema  system_auth  system  kong  system_distributed  system_traces
+```
+
+```
+cqlsh> SELECT table_name FROM system_schema.tables where keyspace_name = 'kong';
+
+ table_name
+-------------------------------
+                          acls
+                          apis
+         basicauth_credentials
+                  certificates
+                cluster_events
+                     consumers
+          hmacauth_credentials
+                   jwt_secrets
+           keyauth_credentials
+    oauth2_authorization_codes
+            oauth2_credentials
+                 oauth2_tokens
+                       plugins
+          ratelimiting_metrics
+ response_ratelimiting_metrics
+                        routes
+             schema_migrations
+                      services
+                          snis
+                       targets
+                     upstreams
+```
+
+```
+cqlsh> select * from kong.plugins;
+
+ id                                   | name     | api_id | config                                                                                                       | consumer_id | created_at                      | enabled | route_id | service_id
+--------------------------------------+----------+--------+--------------------------------------------------------------------------------------------------------------+-------------+---------------------------------+---------+----------+--------------------------------------
+ c1f3c3e4-5549-407f-9821-366f1842ead0 | key-auth |   null | {"key_in_body":false,"key_names":["apikey"],"anonymous":"","hide_credentials":false,"run_on_preflight":true} |        null | 2018-09-03 16:22:36.174000+0000 |    True |     null | bad8d8d8-c39c-4c0a-972d-38d53818e2f4
+
+(1 rows```

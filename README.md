@@ -19,7 +19,9 @@ Import `Kong.postman_collection.json` into Postman
 
 1.	Using Docker-Compose, run a two node Cassandra cluster locally.
 
- ```docker-compose up -d```
+ ```
+ docker-compose up -d
+ ```
  
 2.	By logging-in into the shell of one of those Docker container, prove the two nodes are properly clustered together by using the nodetool CLI tool.
 
@@ -45,7 +47,8 @@ UN  172.18.0.2  108.59 KiB  256          100.0%            27b2b6f9-80f9-4236-a0
 UN  172.18.0.3  88.88 KiB  256          100.0%            efea05ac-f8e6-4909-9eff-979ac1720d36  rack1
 ```
 or
-```docker exec -it cassandra0 nodetool status
+```
+docker exec -it cassandra0 nodetool status
 Datacenter: datacenter1
 =======================
 Status=Up/Down

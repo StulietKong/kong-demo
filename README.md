@@ -16,3 +16,12 @@ Install Kong Community Edition with Postgres as per docs; <https://docs.konghq.c
 Import `Kong.postman_collection.json` into Postman
 
 * Exercise 2
+
+1.	Using Docker-Compose, run a two node Cassandra cluster locally.
+2.	By logging-in into the shell of one of those Docker container, prove the two nodes are properly clustered together by using the nodetool CLI tool.
+3.	Expose the Cassandra cluster port to your local host, and run Kong locally connecting to the Dockerized Cassandra cluster.
+4.	Prove that adding an API, protecting it with key-auth, and provisioning all the right Kong entities to consume the API (consumer, credentials) works.
+5.	Login into the Cassandra cluster again, and list the plugin configuration from the C* table.
+
+
+

@@ -37,17 +37,6 @@ UN  172.19.0.2  240.04 KiB  256          100.0%            8c57aec9-708c-4f33-9c
 ```
 or
 ```
-$ docker exec -it cassandra0 nodetool status
-Datacenter: datacenter1
-=======================
-Status=Up/Down
-|/ State=Normal/Leaving/Joining/Moving
---  Address     Load       Tokens       Owns (effective)  Host ID                               Rack
-UN  172.18.0.2  108.59 KiB  256          100.0%            27b2b6f9-80f9-4236-a06c-15fa6ea9e575  rack1
-UN  172.18.0.3  88.88 KiB  256          100.0%            efea05ac-f8e6-4909-9eff-979ac1720d36  rack1
-```
-or
-```
 docker exec -it cassandra0 bash
 root@d2314cac05e9:/# nodetool status
 Datacenter: datacenter1

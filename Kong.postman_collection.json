@@ -387,7 +387,251 @@
 		},
 		{
 			"name": "Exercise #2",
-			"item": []
+			"item": [
+				{
+					"name": "Add Service",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "kong-json",
+									"type": "text"
+								},
+								{
+									"key": "url",
+									"value": "http://httpbin.org/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8001/services/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"services",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Route",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "hosts[]",
+									"value": "kong.heronwood.co.uk",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8001/services/kong-json/routes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"services",
+								"kong-json",
+								"routes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Request via Kong",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Host",
+								"value": "kong.heronwood.co.uk"
+							},
+							{
+								"key": "X-TestHeader1",
+								"value": "test-value1"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Configure key-auth plugin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "key-auth",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8001/services/kong-json/plugins/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"services",
+								"kong-json",
+								"plugins",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Consumer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "alice",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8001/consumers/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"consumers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Provision key credentials",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "key",
+									"value": "xyz098",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8001/consumers/alice/key-auth/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"consumers",
+								"alice",
+								"key-auth",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Auth Request via Kong",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Host",
+								"value": "kong.heronwood.co.uk"
+							},
+							{
+								"key": "apikey",
+								"value": "xyz098"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Status",

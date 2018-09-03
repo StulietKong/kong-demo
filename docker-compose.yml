@@ -1,17 +1,21 @@
-version: '2'
+version: '3.5'
 services:
 
 ###############################
    cassandra0:
-    image: cassandra
+    image: cassandra:3
     container_name: cassandra0
     ports:
-     - 9042:9042
      - 7199:7199
+    expose:
+    - 9042
+
+    networks:
+     - global-network-name
 
 ###############################
    cassandra1:
-    image: cassandra
+    image: cassandra:3
     container_name: cassandra1
     ports:
      - 9142:9042
@@ -19,4 +23,9 @@ services:
      - cassandra0:seed
     environment:
      - CASSANDRA_SEEDS=seed
+    networks:
+     - global-network-name
 
+networks:
+  global-network-name:
+   name: kong-net

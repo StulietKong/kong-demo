@@ -59,7 +59,15 @@ UN  172.18.0.2  108.59 KiB  256          100.0%            27b2b6f9-80f9-4236-a0
 UN  172.18.0.3  88.88 KiB  256          100.0%            efea05ac-f8e6-4909-9eff-979ac1720d36  rack1
 ```
 
+```
+docker run --rm --network=kong-net -e "KONG_DATABASE=cassandra" -e "KONG_PG_HOST=cassandra0" -e "KONG_CASSANDRA_CONTACT_POINTS=cassandra0" kong:latest kong migrations up
+```
+
 3.	Expose the Cassandra cluster port to your local host, and run Kong locally connecting to the Dockerized Cassandra cluster.
+```
+docker run -d --name kong --network=kong-net -e "KONG_DATABASE=cassandra0" -e "KONG_PG_HOST=kong-database" -e "KONG_CASSANDRA_CONTACT_POINTS=cassandra0" -e "KONG_PROXY_ACCESS_LOG=/dev/stdout" -e "KONG_ADMIN_ACCESS_LOG=/dev/stdout" -e "KONG_PROXY_ERROR_LOG=/dev/stderr" -e "KONG_ADMIN_ERROR_LOG=/dev/stderr" -e "KONG_ADMIN_LISTEN=0.0.0.0:8001, 0.0.0.0:8444 ssl" -p 8000:8000 -p 8443:8443 -p 8001:8001 -p 8444:8444 kong:latest
+```
+
 4.	Prove that adding an API, protecting it with key-auth, and provisioning all the right Kong entities to consume the API (consumer, credentials) works.
 5.	Login into the Cassandra cluster again, and list the plugin configuration from the C* table.
 
